@@ -9,6 +9,7 @@ def main():
     # Define pages
     p1 = st.Page(page="./page_directory/01_compound_interest.py", title="Compound interest", icon=":material/query_stats:")
     p2 = st.Page(page="./page_directory/02_simple_interest.py", title="Simple interest", icon=":material/query_stats:")
+    p3 = st.Page(page ="./page_directory/03_FIRE.py", title = "Finantial independence", icon = ":material/query_stats:")
 
     # Generate a header toolkit
     with st.expander("**Theme options**"):
@@ -57,7 +58,7 @@ def main():
     st.session_state.fontsize = fontsize_value
 
     # Install multipage navigation
-    pg = st.navigation(dict(Calculators=[p1, p2]))
+    pg = st.navigation(dict(Calculators=[p1, p2, p3]))
     pg.run()
 
 if __name__ == "__main__":

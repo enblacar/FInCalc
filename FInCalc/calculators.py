@@ -33,11 +33,12 @@ def compound_interest(principal = 1500,
 
     # Adjust annual rate for inflation: Effective return.
     # Formula Effective return = ((1 + Return after TER) / (1 + Inflation Rate)) - 1
-    effective_return = ((1 + return_after_ter) / (1 + inflation_rate)) - 1 if inflation else return_after_ter
-
+    return_after_inflation = ((1 + return_after_ter) / (1 + inflation_rate)) - 1
+    effective_return = return_after_inflation if inflation else return_after_ter
+    
     if effective_return < 0:
         st.error("Negative returns are not allowed in this calculator! This is due to Annual Growth Rate - TER or the fact that after applying inflation, the returns go to the negative.")
-        exit()
+        return pd.DataFrame()
 
     for year in range(1, years + 1):
         if effective_return == 0:
@@ -74,8 +75,8 @@ def compound_interest(principal = 1500,
             contributions = future_value_savings - principal
             interest_over_contributions = future_value_of_contributions - contributions
             total_interest = interest_over_initial_investment + interest_over_contributions
-    
-        
+            
+
         # Append the results to the list
         data.append({
             'Year': year,
@@ -86,6 +87,7 @@ def compound_interest(principal = 1500,
             'Interest over Contributions': interest_over_contributions,
             'Total Contributions': future_value_of_contributions,
             "Interest": total_interest,
+            "Total Show": future_value_with_interest,
             'Total': 0,
         })
 

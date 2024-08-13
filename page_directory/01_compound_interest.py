@@ -32,7 +32,7 @@ def main():
                                    contribution = contribution,
                                    ter = ter, 
                                    inflation = inflation)
-        
+        st.metric("holi", 2, 3)
         p = plot_compound_interest(data = amount, discrete_palette = discrete_palette, log_y = log_y, fontsize = fontsize)
         
         st.plotly_chart(p, use_container_width=True)
