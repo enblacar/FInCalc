@@ -56,10 +56,14 @@ def plot_compound_interest(data, discrete_palette, log_y, fontsize):
                     bargap = 0.2,
                     hovermode = "x unified",
                     hoverlabel=dict(bgcolor="white", font_size = fontsize),
-                    legend = dict(x = 0.5, y = 1.1, xanchor = "center", yanchor = "top", orientation = "h"),
-                          height = 700)
+                    margin = dict(l = 0, r = 0, t = 0, b = 0),
+                    legend = dict(x = 0.5, y = 1.1, xanchor = "center", yanchor = "top", orientation = "h"))
 
     p = update_plot_layout(fig = p, type = "bar", fontsize = fontsize)
+
+    totals = data_long[data_long["Year"] == max(data_long["Year"])].groupby("Type")["Amount"].sum().reset_index()
+    totals.rename(columns = {"Amount": "Total"}, inplace = True)
+    p2 = donut_plot(totals, discrete_palette = discrete_palette, fontsize = fontsize)
     
 
-    return(p)
+    return(p, p2)

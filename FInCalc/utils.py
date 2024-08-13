@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.colors as pc
+import plotly.graph_objects as go
 
 
 # Function to generate color map
@@ -39,7 +40,12 @@ def update_plot_layout(fig, type = None, fontsize = None, font_color = "black"):
                       yaxis = dict(showline = True,
                                   ticks = "",
                                   tickfont = dict(size = fontsize, color = font_color),
-                                  titlefont = dict(size = fontsize, color = font_color)))      
+                                  titlefont = dict(size = fontsize, color = font_color)))  
+
+    if type == "pie":
+        fig.update_layout(margin = dict(l = 0, r = 0, t = 0, b = 0),
+                          showlegend = False)
+            
     return fig
 
 def get_plotly_colors():
@@ -75,3 +81,43 @@ def display_palette_as_gradient(palette, continuous = True, num_colors = 100):
     # Display the color scale as a single horizontal line
     st.write(f'<div style="display:flex; width:100%;">{color_boxes}</div>', unsafe_allow_html=True)
     
+def format_number(num):
+    """
+    Format a number to include a suffix based on its magnitude.
+    
+    :param num: The number to format.
+    :return: A string representation of the number with a suffix.
+    """
+    num = float(num)
+    if abs(num) >= 1_000_000_000_000:
+        return f"{num / 1_000_000_000_000:.2f}T"
+    elif abs(num) >= 1_000_000_000:
+        return f"{num / 1_000_000_000:.2f}B"
+    elif abs(num) >= 1_000_000:
+        return f"{num / 1_000_000:.2f}M"
+    elif abs(num) >= 1_000:
+        return f"{num / 1_000:.2f}K"
+    else:
+        return f"{num:.2f}"
+    
+
+def donut_plot(data, discrete_palette, fontsize):
+
+    p = go.Pie(labels = data["Type"],
+               values = data["Total"],
+               hole = 0.75,
+               textinfo= "none", 
+               hoverinfo = "label + percent + value",
+               title = "Investments",
+               customdata = ["Type", "Value"],
+               marker = dict(colors = discrete_palette,
+                             line = dict(color = "white", 
+                                         width = 1.5)),
+               hovertemplate = '<b>%{label}:</b> %{value:,.2f} €'+
+                                    '<extra></extra>',)  
+    
+    p = go.Figure(p)
+
+    p = update_plot_layout(fig = p, type = "pie", fontsize = fontsize)
+    
+    return p

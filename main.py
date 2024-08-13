@@ -4,7 +4,7 @@ from FInCalc import *
 
 def main():
     # Set Streamlit page configuration
-    st.set_page_config(layout="wide", page_icon="random", page_title="Finance Calculators")
+    st.set_page_config(page_icon="random", page_title="Finance Calculators")
 
     # Define pages
     p1 = st.Page(page="./page_directory/01_compound_interest.py", title="Compound interest", icon=":material/query_stats:")
