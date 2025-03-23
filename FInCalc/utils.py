@@ -36,11 +36,11 @@ def update_plot_layout(fig, type = None, fontsize = None, font_color = "black"):
                       xaxis = dict(showline = True,
                                   ticks = "",
                                   tickfont = dict(size = fontsize, color = font_color),
-                                  titlefont = dict(size = fontsize, color = font_color)),
+                                  title_font = dict(size = fontsize, color = font_color)),
                       yaxis = dict(showline = True,
                                   ticks = "",
                                   tickfont = dict(size = fontsize, color = font_color),
-                                  titlefont = dict(size = fontsize, color = font_color)))  
+                                  title_font = dict(size = fontsize, color = font_color)))  
 
     if type == "pie":
         fig.update_layout(margin = dict(l = 0, r = 0, t = 0, b = 0),
