@@ -30,6 +30,7 @@ def update_plot_layout(fig, type = None, fontsize = None, font_color = "black"):
     fig.update_layout(legend = dict(font = dict(size = fontsize),
                                     itemsizing = "constant"),
                       legend_title = dict(font = dict(size = fontsize)),
+                      hoverlabel = dict(font_size = fontsize),
                       font = dict(size = fontsize, color = font_color),
                       plot_bgcolor = "white", 
                       paper_bgcolor = "white",
@@ -101,7 +102,7 @@ def format_number(num):
         return f"{num:.2f}"
     
 
-def donut_plot(data, discrete_palette, fontsize):
+def donut_plot(data, discrete_palette, fontsize, currency_use):
 
     p = go.Pie(labels = data["Type"],
                values = data["Total"],
@@ -113,8 +114,8 @@ def donut_plot(data, discrete_palette, fontsize):
                marker = dict(colors = discrete_palette,
                              line = dict(color = "white", 
                                          width = 1.5)),
-               hovertemplate = '<b>%{label}:</b> %{value:,.2f} €'+
-                                    '<extra></extra>',)  
+               hovertemplate = f"<b>%{{label}}:</b> %{{value:,.2f}} {currency_use}" +
+                                "<extra></extra>",)  
     
     p = go.Figure(p)
 
